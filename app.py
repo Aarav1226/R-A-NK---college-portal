@@ -123,5 +123,15 @@ def show_login():
                     elif not n_uid or not n_psw or not n_nm:
                         st.warning("Please fill all fields.")
                     else:
-
-                        pass
+                        rl_code = "stu" if n_role == "Student" else "tch"
+                        # CRUD: CREATE new user in the main usr table
+                        res = run_q("INSERT INTO usr VALUES (?, ?, ?, ?)", (n_uid, n_psw, rl_code, n_nm), fetch=False)
+                        if isinstance(res, Exception):
+                            st.error("ID already exists!")
+                        else:
+                            # Also link them into their specific role table
+                            if rl_code == "stu":
+                                run_q("INSERT INTO stu VALUES (?, 'A', 1, 0, 0)", (n_uid,), fetch=False)
+                            else:
+                                run_q("INSERT INTO tch VALUES (?, 'A', ?)", (n_uid, n_sub), fetch=False)
+                            st.success("Account Created! Please Login.")
