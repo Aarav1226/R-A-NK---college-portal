@@ -113,6 +113,27 @@ def bulk_upload():
             skip_count += 1
             print(f"⚠️ Skipped: {name} ({sap_id}) - ID already exists!")
 
+    for name, sap_id, sub, psw in teacher_data:
+        try:
+            # Insert into the Users table (role: tch)
+            c.execute("INSERT INTO usr VALUES (?, ?, 'tch', ?)", (sap_id, psw, name))
+            # Insert into the Teachers table (Default Batch A)
+            c.execute("INSERT INTO tch VALUES (?, 'A', ?)", (sap_id, sub))
+            t_success += 1
+            print(f"✅ Teacher added: Prof. {name} ({sap_id}) - {sub}")
+        except sqlite3.IntegrityError:
+            skip_count += 1
+            print(f"⚠️ Skipped Teacher: {name} ({sap_id}) - ID already exists!")
 
+    # Save changes
     con.commit()
     con.close()
+    
+    print("-" * 30)
+    print(f"Bulk Upload Complete!")
+    print(f"Students Added: {s_success}")
+    print(f"Teachers Added: {t_success}")
+    print(f"Total Skipped: {skip_count}")
+
+if __name__ == "__main__":
+    bulk_upload()
