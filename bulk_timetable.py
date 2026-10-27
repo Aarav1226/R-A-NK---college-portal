@@ -30,5 +30,10 @@ timetable_data_ab = [
     ("Wed", "01:00 PM - 01:55 PM", "Digital Electronics", "3105", "1003"),
     ("Wed", "03:00 PM - 03:55 PM", "EVS", "MS Teams", "1005"),
 
+    # --- THURSDAY ---
+    ("Thu", "08:00 AM - 08:55 AM", "Digital Electronics", "3103", "1003"),
+    ("Thu", "09:00 AM - 09:55 AM", "DSA", "1203", "1000"),
+    ("Thu", "12:00 PM - 01:55 PM", "Elements of AI/ML", "AB-11 L-003", "1002"),
+
 
 ]
