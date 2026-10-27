@@ -5,3 +5,8 @@ from datetime import date
 
 # --- CONFIGURATION ---
 st.set_page_config(page_title="R(A)NK University Portal", page_icon="🎓", layout="wide")
+
+SUBJECTS = [
+    "DSA", "Python", "Maths", "Time & Priority Management", 
+    "EVS", "Digital Electronics", "Elements of AI/ML"
+]
