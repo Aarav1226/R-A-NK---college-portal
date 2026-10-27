@@ -94,6 +94,15 @@ def show_login():
                 psw = st.text_input("Password", type="password")
                 submit = st.form_submit_button("LOGIN", use_container_width=True)
                 
+                if submit:
+                    # Verify credentials against the database
+                    res = run_q("SELECT role, name FROM usr WHERE uid=? AND psw=?", (uid.strip(), psw.strip()))
+                    if res and not isinstance(res, Exception):
+                        st.session_state.uid = uid.strip()
+                        st.session_state.role = res[0][0]
+                        st.session_state.name = res[0][1]
+                        st.rerun() # Refresh the page to load the correct dashboard
+                    else:
+                        st.error("Invalid ID or Password")
 
-                pass
         with tab2: pass
