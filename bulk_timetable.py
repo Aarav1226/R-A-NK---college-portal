@@ -98,5 +98,23 @@ def upload_timetable():
         ("D", timetable_data_cd)
     ]
     
+    total_added = 0
+    
+    print("\n--- Uploading Timetables ---")
+    for batch, data_set in batch_map:
+        print(f"\nProcessing Batch {batch}...")
+        for day, tim, sub, rm, tid in data_set:
+            try:
+                c.execute("INSERT INTO ttb (bat, day, tim, sub, rm, tid) VALUES (?, ?, ?, ?, ?, ?)", 
+                          (batch, day, tim, sub, rm, tid))
+                total_added += 1
+                print(f"✅ Added: {day} | {tim} | {sub} | Room {rm}")
+            except sqlite3.Error as e:
+                print(f"⚠️ Failed to add {sub} on {day}: {e}")
+
+    # Save changes and close
+    con.commit()
+    con.close()
+    
 
     con.close()
