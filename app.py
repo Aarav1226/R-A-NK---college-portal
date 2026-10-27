@@ -322,5 +322,13 @@ def show_admin():
                     else:
                         st.error("Teacher SAP ID not found.")
 
-
-        with tabs[1]: pass
+        with tabs[1]:
+            st.subheader("Student Records (Update)")
+            sem_filter = st.selectbox("Filter Students by Semester:", [1, 2, 3, 4, 5, 6, 7, 8])
+            stus = run_q("SELECT s.uid, u.name, s.bat FROM stu s JOIN usr u ON s.uid = u.uid WHERE s.sem=?", (sem_filter,))
+            
+            if stus:
+                st.info("Edit student details directly in the table. Changing an ID will automatically migrate their grades, attendance, and library records.")
+                df_stu = pd.DataFrame(stus, columns=["SAP ID", "Name", "Batch"])
+                edited_stu = st.data_editor(df_stu, use_container_width=True, hide_index=True, key="stu_editor")
+                
