@@ -665,3 +665,20 @@ def show_student():
                 elif sgpa2 > 0: 
                     st.info(f"### Yearly CGPA (Tentative): {sgpa2:.2f}")
 
+    elif menu == "📚 Library":
+        st.header("Central Library Hub")
+        
+        c1, c2 = st.columns(2)
+        with c1:
+            st.subheader("Rent a Book")
+            av_b = run_q("SELECT bid, title FROM bks WHERE rent=''")
+            if av_b:
+                options = {f"{b[0]} - {b[1]}": b[0] for b in av_b}
+                sel_bk = st.selectbox("Available Books", options.keys())
+                if st.button("Issue Selected Book", type="primary"):
+                    run_q("UPDATE bks SET rent=? WHERE bid=?", (uid, options[sel_bk]), fetch=False)
+                    st.success("Book Issued!")
+                    st.rerun()
+            else:
+                st.info("No books available right now.")
+                
