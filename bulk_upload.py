@@ -89,3 +89,30 @@ def init_db(c):
     c.execute('''CREATE TABLE IF NOT EXISTS att_data (uid TEXT, sub TEXT, attended INTEGER, total INTEGER, UNIQUE(uid, sub))''')
     c.execute('''CREATE TABLE IF NOT EXISTS class_conducted (ttb_id INTEGER, dt TEXT, UNIQUE(ttb_id, dt))''')
 
+def bulk_upload():
+    con = sqlite3.connect("col.db")
+    c = con.cursor()
+    
+    # Initialize the database schema first!
+    init_db(c)
+    
+    s_success = 0
+    t_success = 0
+    skip_count = 0
+    
+    print("--- Uploading Students ---")
+    for name, sap_id, batch, psw in student_data:
+        try:
+            # Insert into the Users table (role: stu)
+            c.execute("INSERT INTO usr VALUES (?, ?, 'stu', ?)", (sap_id, psw, name))
+            # Insert into the Students table
+            c.execute("INSERT INTO stu VALUES (?, ?, 1, 0, 0)", (sap_id, batch))
+            s_success += 1
+            print(f"✅ Student added: {name} ({sap_id})")
+        except sqlite3.IntegrityError:
+            skip_count += 1
+            print(f"⚠️ Skipped: {name} ({sap_id}) - ID already exists!")
+
+
+    con.commit()
+    con.close()
