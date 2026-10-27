@@ -462,3 +462,18 @@ def show_teacher():
                 hide_index=True,
                 use_container_width=True
             )
+            
+            if st.button("Save Today's Attendance", type="primary"):
+                run_q("INSERT INTO class_conducted (ttb_id, dt) VALUES (?, ?)", (ttb_id, dt_today), fetch=False)
+                for index, row in edited_df.iterrows():
+                    suid = row["SAP ID"]
+                    is_present = 1 if row["Present Today"] else 0
+                    if run_q("SELECT * FROM att_data WHERE uid=? AND sub=?", (suid, tch_sub)):
+                        # CRUD: UPDATE existing attendance record
+                        run_q("UPDATE att_data SET attended=attended+?, total=total+1 WHERE uid=? AND sub=?", (is_present, suid, tch_sub), fetch=False)
+                    else:
+                        run_q("INSERT INTO att_data (uid, sub, attended, total) VALUES (?, ?, ?, 1)", (suid, tch_sub, is_present), fetch=False)
+                
+                st.success("Attendance Saved!")
+                st.rerun()
+
