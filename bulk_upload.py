@@ -58,5 +58,10 @@ student_data = [
     ("Bhoovi Verma", "590025848", "D", "BH5848"),
     ("Krish Gupta", "590025919", "D", "KR5919"),
     ("Atulya Singh", "590025932", "D", "AT5932"),
-
+    ("Divyanshu Raman Pandey", "590026079", "D", "DI6079"),
+    ("Sahaj Parikh", "590026086", "D", "SA6086"),
+    ("Vibha Dubey", "590026089", "D", "VI6089"),
+    ("SAYRA SOOD", "590026248", "D", "SA6248"),
+    ("Apoorv Mishra", "590026560", "D", "AP6560"),
+    ("Aakashi jain", "590026568", "D", "AA6568")
 ]
