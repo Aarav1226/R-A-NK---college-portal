@@ -34,6 +34,9 @@ def init_db():
     c.execute('''CREATE TABLE IF NOT EXISTS att_data (uid TEXT, sub TEXT, attended INTEGER, total INTEGER, UNIQUE(uid, sub))''')
     c.execute('''CREATE TABLE IF NOT EXISTS class_conducted (ttb_id INTEGER, dt TEXT, UNIQUE(ttb_id, dt))''')
     
-
+    # Inject default ADMIN account on first run
+    c.execute("SELECT * FROM usr WHERE uid='ADMIN'")
+    if not c.fetchone():
+        c.execute("INSERT INTO usr VALUES ('ADMIN', '1234567890', 'admin', 'System Admin')")
     con.commit()
     con.close()
