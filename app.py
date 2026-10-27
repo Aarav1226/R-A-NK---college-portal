@@ -88,6 +88,12 @@ def show_login():
         st.markdown("### Welcome to the R(A)NK Portal")
         tab1, tab2 = st.tabs(["Secure Login", "Create Account"])
         
+        with tab1:
+            with st.form("login_form"):
+                uid = st.text_input("User Name / SAP ID")
+                psw = st.text_input("Password", type="password")
+                submit = st.form_submit_button("LOGIN", use_container_width=True)
+                
 
-        with tab1: pass
+                pass
         with tab2: pass
