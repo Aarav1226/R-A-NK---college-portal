@@ -528,3 +528,18 @@ def show_student():
         elif m >= 40: return "C", 5.0
         else: return "F", 0.0
 
+    if menu == "🏠 Home":
+        c1, c2 = st.columns([1, 2])
+        
+        with c1:
+            st.markdown(f"""
+            <div style='background-color: white; padding: 20px; border-radius: 10px; border: 1px solid #e1e8ed; text-align: center;'>
+                <div style='font-size: 60px; background-color:#e1e8ed; color:#2c3e50; border-radius:50%; width:100px; height:100px; line-height:100px; margin: 0 auto;'>{st.session_state.name[0]}</div>
+                <h3 style='color: #0275d8;'>{st.session_state.name}</h3>
+                <span style='background-color: green; color: white; padding: 3px 8px; border-radius: 5px; font-size: 12px; font-weight: bold;'>Status: ACTIVE</span>
+                <p style='color: grey; margin-top: 10px;'>B.Tech | Batch {bat} | Sem {sem}<br>SAP ID: {uid}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+
+        with c2: pass
