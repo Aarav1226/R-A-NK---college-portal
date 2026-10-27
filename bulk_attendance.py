@@ -79,6 +79,12 @@ def upload_attendance():
             overall_attended += attended
             total_records_added += 1
             
+        # Update the overall 'att' counter in the main 'stu' table
+        c.execute("UPDATE stu SET att=? WHERE uid=?", (overall_attended, uid))
+            
+        if uid == AARAV_SAP_ID:
+            print(f"🌟 Processed Aarav ({uid}) - Assigned exact attendance from screenshot!")
+
 
     con.commit()
     con.close()
