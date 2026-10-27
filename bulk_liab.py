@@ -65,6 +65,25 @@ def setup_library():
         print(f"🎒 Rented to Aarav Saxena ({AARAV_SAP_ID}): {title}")
         available_books.remove((bid, title)) # Remove from available pool
         
+    # --- Assign books to a FEW random students (e.g., 6 other students) ---
+    # Remove Aarav from the random selection pool
+    other_students = [s for s in all_students if s[0] != AARAV_SAP_ID]
+    random.shuffle(other_students)
+    lucky_students = other_students[:6] # Pick 6 random students
+    
+    for uid, name in lucky_students:
+        # Give them 1 random book
+        if not available_books: break # Stop if library is empty
+        
+        book_to_rent = random.choice(available_books)
+        bid, title = book_to_rent
+        
+        c.execute("UPDATE bks SET rent=? WHERE bid=?", (uid, bid))
+        print(f"📘 Rented to {name} ({uid}): {title}")
+        
+        available_books.remove(book_to_rent) # Remove from available pool
+
+    con.commit()
 
     con.commit()
     con.close()
