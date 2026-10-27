@@ -212,3 +212,15 @@ def show_admin():
                 run_q("DELETE FROM ttb WHERE id=?", (del_id,), fetch=False)
                 st.rerun()
 
+    elif menu == "Library & Admissions":
+        c1, c2 = st.columns(2)
+        with c1:
+            st.header("📚 Library Management")
+            new_bk = st.text_input("New Book Title")
+            if st.button("Add Book to Library"):
+                # CRUD: CREATE new book
+                run_q("INSERT INTO bks (title, rent) VALUES (?, '')", (new_bk,), fetch=False)
+                st.success("Book Added!")
+                
+
+        with c2: pass
