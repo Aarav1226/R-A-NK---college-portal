@@ -115,5 +115,13 @@ def show_login():
                 # Default empty subject unless teacher
                 n_sub = st.selectbox("Subject Specialisation (Teachers Only)", SUBJECTS) if n_role == "Teacher" else None
                 
+                reg_submit = st.form_submit_button("REGISTER", use_container_width=True)
+                
+                if reg_submit:
+                    if n_uid == "ADMIN":
+                        st.error("Cannot register as ADMIN")
+                    elif not n_uid or not n_psw or not n_nm:
+                        st.warning("Please fill all fields.")
+                    else:
 
-                pass
+                        pass
