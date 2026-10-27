@@ -332,3 +332,27 @@ def show_admin():
                 df_stu = pd.DataFrame(stus, columns=["SAP ID", "Name", "Batch"])
                 edited_stu = st.data_editor(df_stu, use_container_width=True, hide_index=True, key="stu_editor")
                 
+                if st.button("Save Student Changes", type="primary"):
+                    for index, row in edited_stu.iterrows():
+                        old_uid = df_stu.at[index, "SAP ID"]
+                        new_uid = row["SAP ID"]
+                        new_name = row["Name"]
+                        new_bat = row["Batch"]
+                        
+                        if old_uid != new_uid:
+                            # CASCADING UPDATE for students
+                            res = run_q("UPDATE usr SET uid=?, name=? WHERE uid=?", (new_uid, new_name, old_uid), fetch=False)
+                            if isinstance(res, Exception):
+                                st.error(f"Cannot change ID {old_uid} to {new_uid}: ID already in use!")
+                            else:
+                                run_q("UPDATE stu SET uid=?, bat=? WHERE uid=?", (new_uid, new_bat, old_uid), fetch=False)
+                                run_q("UPDATE mrk SET uid=? WHERE uid=?", (new_uid, old_uid), fetch=False)
+                                run_q("UPDATE att_data SET uid=? WHERE uid=?", (new_uid, old_uid), fetch=False)
+                                run_q("UPDATE bks SET rent=? WHERE rent=?", (new_uid, old_uid), fetch=False)
+                        else:
+                            run_q("UPDATE usr SET name=? WHERE uid=?", (new_name, old_uid), fetch=False)
+                            run_q("UPDATE stu SET bat=? WHERE uid=?", (new_bat, old_uid), fetch=False)
+                            
+                    st.success(f"Semester {sem_filter} student records updated successfully!")
+                    st.rerun()
+                
