@@ -158,5 +158,9 @@ def show_admin():
             tch_options = {f"{t[0]} - {t[1]}": t[0] for t in tch_list}
             tch = c6.selectbox("Teacher", options=tch_options.keys())
             
-
-            pass
+            if st.form_submit_button("Add Session"):
+                tid = tch_options[tch]
+                run_q("INSERT INTO ttb (bat, day, tim, sub, rm, tid) VALUES (?, ?, ?, ?, ?, ?)", 
+                      (bat, day, tim, sub, rm, tid), fetch=False)
+                st.success("Session Added!")
+                
