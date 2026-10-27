@@ -285,5 +285,27 @@ def show_admin():
                 df_tch = pd.DataFrame(tchs, columns=["SAP ID", "Name", "Subject"])
                 edited_tch = st.data_editor(df_tch, use_container_width=True, hide_index=True, key="tch_editor")
                 
+                if st.button("Save Teacher Changes", type="primary"):
+                    for index, row in edited_tch.iterrows():
+                        old_uid = df_tch.at[index, "SAP ID"]
+                        new_uid = row["SAP ID"]
+                        new_name = row["Name"]
+                        new_sub = row["Subject"]
+                        
+                        if old_uid != new_uid:
+                            # CASCADING UPDATE: If the Primary Key (SAP ID) is changed, migrate all linked data!
+                            res = run_q("UPDATE usr SET uid=?, name=? WHERE uid=?", (new_uid, new_name, old_uid), fetch=False)
+                            if isinstance(res, Exception):
+                                st.error(f"Cannot change ID {old_uid} to {new_uid}: ID already in use!")
+                            else:
+                                run_q("UPDATE tch SET uid=?, sub=? WHERE uid=?", (new_uid, new_sub, old_uid), fetch=False)
+                                run_q("UPDATE ttb SET tid=? WHERE tid=?", (new_uid, old_uid), fetch=False)
+                        else:
+                            run_q("UPDATE usr SET name=? WHERE uid=?", (new_name, old_uid), fetch=False)
+                            run_q("UPDATE tch SET sub=? WHERE uid=?", (new_sub, old_uid), fetch=False)
+                            
+                    st.success("Teacher directory updated successfully!")
+                    st.rerun()
+
 
         with tabs[1]: pass
