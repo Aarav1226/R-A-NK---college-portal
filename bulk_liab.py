@@ -55,3 +55,16 @@ def setup_library():
         con.close()
         return
 
+    print("\n--- Assigning Rented Books ---")
+    
+    # --- Assign exactly 2 books to Aarav ---
+    # Give Aarav "Introduction to Algorithms" and "Python Crash Course"
+    aarav_books = [b for b in available_books if "Algorithms" in b[1] or "Crash Course" in b[1]][:2]
+    for bid, title in aarav_books:
+        c.execute("UPDATE bks SET rent=? WHERE bid=?", (AARAV_SAP_ID, bid))
+        print(f"🎒 Rented to Aarav Saxena ({AARAV_SAP_ID}): {title}")
+        available_books.remove((bid, title)) # Remove from available pool
+        
+
+    con.commit()
+    con.close()
