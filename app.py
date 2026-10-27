@@ -356,3 +356,23 @@ def show_admin():
                     st.success(f"Semester {sem_filter} student records updated successfully!")
                     st.rerun()
                 
+                st.markdown("---")
+                st.subheader("Remove Student")
+                del_stu_id = st.text_input("Enter Student SAP ID to remove:")
+                if st.button("Delete Student"):
+                    res = run_q("SELECT * FROM stu WHERE uid=?", (del_stu_id.strip(),))
+                    if res:
+                        # CASCADING DELETE: Wipe the student completely from the ecosystem to prevent orphaned data
+                        run_q("DELETE FROM usr WHERE uid=?", (del_stu_id.strip(),), fetch=False)
+                        run_q("DELETE FROM stu WHERE uid=?", (del_stu_id.strip(),), fetch=False)
+                        run_q("DELETE FROM mrk WHERE uid=?", (del_stu_id.strip(),), fetch=False)
+                        run_q("DELETE FROM att_data WHERE uid=?", (del_stu_id.strip(),), fetch=False)
+                        # Auto-return any books the student had rented
+                        run_q("UPDATE bks SET rent='' WHERE rent=?", (del_stu_id.strip(),), fetch=False)
+                        st.success(f"Student {del_stu_id} and all associated records have been removed.")
+                        st.rerun()
+                    else:
+                        st.error("Student SAP ID not found.")
+            else:
+                st.info("No students currently assigned to this semester.")
+
