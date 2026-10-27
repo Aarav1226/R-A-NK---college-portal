@@ -171,3 +171,9 @@ def show_admin():
             st.info("No sessions scheduled for this batch.")
         else:
             df_mat = pd.DataFrame(sessions, columns=["Day", "Time", "Subject", "Room", "Teacher"])
+            # Format multi-line content for Matrix cells
+            df_mat["Details"] = df_mat["Subject"] + "\nRoom: " + df_mat["Room"] + "\nProf. " + df_mat["Teacher"]
+            
+            # Pivot table converts vertical database list into Horizontal Mon-Sun Matrix!
+            pivot_df = df_mat.pivot_table(index="Time", columns="Day", values="Details", aggfunc=lambda x: '\n---\n'.join(x)).fillna("-")
+            
