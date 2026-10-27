@@ -307,5 +307,20 @@ def show_admin():
                     st.success("Teacher directory updated successfully!")
                     st.rerun()
 
+                st.markdown("---")
+                st.subheader("Remove Teacher")
+                del_tch_id = st.text_input("Enter Teacher SAP ID to remove:")
+                if st.button("Delete Teacher"):
+                    res = run_q("SELECT * FROM tch WHERE uid=?", (del_tch_id.strip(),))
+                    if res:
+                        # CASCADING DELETE: Remove teacher and clear their assigned timetables
+                        run_q("DELETE FROM usr WHERE uid=?", (del_tch_id.strip(),), fetch=False)
+                        run_q("DELETE FROM tch WHERE uid=?", (del_tch_id.strip(),), fetch=False)
+                        run_q("DELETE FROM ttb WHERE tid=?", (del_tch_id.strip(),), fetch=False)
+                        st.success(f"Teacher {del_tch_id} and their scheduled sessions have been removed.")
+                        st.rerun()
+                    else:
+                        st.error("Teacher SAP ID not found.")
+
 
         with tabs[1]: pass
