@@ -429,5 +429,12 @@ def show_teacher():
         
         is_locked = bool(run_q("SELECT * FROM class_conducted WHERE ttb_id=? AND dt=?", (ttb_id, dt_today)))
         
-
-        pass
+        if is_locked:
+            st.success("🔒 Attendance already submitted and locked for this session today.")
+            stus = run_q("SELECT u.uid, u.name FROM usr u JOIN stu s ON u.uid=s.uid WHERE u.role='stu' AND s.bat=?", (bat,))
+            display_data = []
+            for (suid, snm) in stus:
+                rec = run_q("SELECT attended, total FROM att_data WHERE uid=? AND sub=?", (suid, tch_sub))
+                att, tot = rec[0] if rec else (0, 0)
+                display_data.append({"SAP ID": suid, "Name": snm, "Attended": att, "Total Classes": tot})
+            st.dataframe(pd.DataFrame(display_data), hide_index=True, use_container_width=True)
