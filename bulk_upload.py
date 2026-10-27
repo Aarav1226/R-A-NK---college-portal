@@ -34,5 +34,18 @@ student_data = [
     ("Shiva Vashisth", "590025394", "B", "SH5394"),
     ("Aditya", "590025474", "B", "AD5474"),
     ("Raghav Bansal", "590026647", "B", "RA6647"),
+    
+    # New Data from Screenshot 2
+    ("Aditya Aditya", "590021696", "C", "AD1696"),
+    ("Viraj Varma", "590022322", "C", "VV2322"),
+    ("DEVAM YADAV", "590022492", "C", "DE2492"),
+    ("Hardik Bansal", "590022662", "C", "HA2662"),
+    ("EKTA BHARDWAJ", "590022698", "C", "EK2698"),
+    ("Shorya Bhardwaj", "590023597", "C", "SH3597"),
+    ("Priyanshi Rana", "590024089", "C", "PR4089"),
+    ("Dhruv Dhruv", "590024139", "C", "DH4139"),
+    ("Yash Dhondiyal", "590024289", "C", "YA4289"),
+    ("Aksh Aswal", "590024622", "C", "AK4622"),
+    ("GARVIT JUNEJA", "590024669", "C", "GA4669"),
 
 ]
