@@ -84,5 +84,10 @@ def show_login():
         st.markdown("<h2>UNIVERSITY OF TOMORROW</h2>", unsafe_allow_html=True)
         st.write("A Modern Educational Portal.")
         
+    with col2:
+        st.markdown("### Welcome to the R(A)NK Portal")
+        tab1, tab2 = st.tabs(["Secure Login", "Create Account"])
+        
 
-    with col2: pass
+        with tab1: pass
+        with tab2: pass
