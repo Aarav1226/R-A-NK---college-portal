@@ -84,6 +84,13 @@ def setup_library():
         available_books.remove(book_to_rent) # Remove from available pool
 
     con.commit()
-
-    con.commit()
     con.close()
+    
+    print("-" * 30)
+    print("Bulk Library Upload & Renting Complete!")
+    print(f"Total Books in Library: {len(NEW_BOOKS)}")
+    print(f"Books currently rented out: {len(NEW_BOOKS) - len(available_books)}")
+    print(f"Books still available: {len(available_books)}")
+
+if __name__ == "__main__":
+    setup_library()
