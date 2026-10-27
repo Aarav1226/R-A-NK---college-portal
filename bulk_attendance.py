@@ -36,3 +36,26 @@ AARAV_ATTENDED = {
     "Maths": 42,             
     "Elements of AI/ML": 26  
 }
+
+def upload_attendance():
+    con = sqlite3.connect("col.db")
+    c = con.cursor()
+    
+    # Ensure the attendance table exists
+    c.execute('''CREATE TABLE IF NOT EXISTS att_data (uid TEXT, sub TEXT, attended INTEGER, total INTEGER, UNIQUE(uid, sub))''')
+    
+    # Clear existing attendance data to prevent duplicates
+    c.execute("DELETE FROM att_data")
+    print("🧹 Cleared old subject-wise attendance data.")
+    
+    # Fetch all students from the database
+    c.execute("SELECT uid FROM stu")
+    students = c.fetchall()
+    
+    if not students:
+        print("❌ No students found in the database! Please run bulk_upload.py first.")
+        con.close()
+        return
+
+
+    con.close()
