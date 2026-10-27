@@ -563,5 +563,24 @@ def show_student():
                 </div>
                 """, unsafe_allow_html=True)
 
-
-                pass
+                for sub, a, t in att_records:
+                    pct = a / t if t > 0 else 0
+                    
+                    # Dynamically determine the color based on the thresholds
+                    if pct >= 0.75:
+                        bar_color = "#3498db" # Blue
+                    elif pct >= 0.65:
+                        bar_color = "#f1c40f" # Yellow
+                    else:
+                        bar_color = "#e74c3c" # Red
+                        
+                    # Create custom colored progress bar using HTML/CSS for a sleek UI
+                    # Removed hardcoded text color so it adapts to Dark/Light mode automatically
+                    # Changed empty bar background to a transparent gray to look good in both themes
+                    st.markdown(f"""
+                    <div style='margin-bottom: 5px;'><b>{sub}</b> ({a}/{t} - {pct*100:.1f}%)</div>
+                    <div style='width: 100%; background-color: rgba(150, 150, 150, 0.3); border-radius: 5px; margin-bottom: 15px;'>
+                        <div style='width: {pct*100}%; background-color: {bar_color}; padding: 5px 0; border-radius: 5px;'></div>
+                    </div>
+                    """, unsafe_allow_html=True)
+            
