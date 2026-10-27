@@ -65,3 +65,15 @@ student_data = [
     ("Apoorv Mishra", "590026560", "D", "AP6560"),
     ("Aakashi jain", "590026568", "D", "AA6568")
 ]
+
+# --- TEACHER DATA ---
+# Format: (Name, SAP_ID, Subject, Password)
+teacher_data = [
+    ("Nelson", "1000", "DSA", "NE1000"),
+    ("Prasanthi", "1001", "Python", "PR1001"),
+    ("Goutam", "1002", "Elements of AI/ML", "GO1002"),
+    ("Manju", "1003", "Digital Electronics", "MA1003"),
+    ("Taruni", "1004", "Time & Priority Management", "TA1004"),
+    ("Aarav", "1005", "EVS", "AA1005"),
+    ("Debashish", "1006", "Maths", "DE1006")
+]
