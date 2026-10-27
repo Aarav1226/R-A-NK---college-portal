@@ -41,11 +41,19 @@ def init_db():
     con.commit()
     con.close()
 
-
 def run_q(q, vals=(), fetch=True):
-    con = sqlite3.connect('col.db')
+    # Centralized database query runner to handle connections safely
+    con = sqlite3.connect("col.db")
     c = con.cursor()
-    c.execute(q, vals)
-    res = c.fetchall() if fetch else (con.commit() or True)
-    con.close()
-    return res
+    try:
+        c.execute(q, vals)
+        if fetch:
+            res = c.fetchall()
+        else:
+            con.commit()
+            res = True
+        return res
+    except sqlite3.IntegrityError as e:
+        return e
+    finally:
+        con.close()
