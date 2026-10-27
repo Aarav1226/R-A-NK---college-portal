@@ -412,3 +412,16 @@ def show_teacher():
             
             st.table(pivot_df)
             
+    elif menu == "📅 Attendance Log":
+        st.header("Record Attendance")
+        tch_sessions = run_q("SELECT id, day, tim, bat FROM ttb WHERE tid=? ORDER BY day, tim", (uid,))
+        
+        if not tch_sessions:
+            st.warning("No sessions scheduled in your timetable.")
+            return
+            
+        tch_sessions = sorted(tch_sessions, key=lambda x: (DAY_ORDER_MAP.get(x[1], 8), x[2]))
+        ses_options = {f"{s[1]} | {s[2]} | Batch {s[3]}": (s[0], s[3]) for s in tch_sessions}
+        sel_ses = st.selectbox("Select Session:", options=list(ses_options.keys()))
+        
+        ttb_id, bat = ses_options[sel_ses]
