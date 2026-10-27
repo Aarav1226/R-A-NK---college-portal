@@ -116,5 +116,9 @@ def upload_timetable():
     con.commit()
     con.close()
     
+    print("-" * 30)
+    print("Bulk Timetable Upload Complete!")
+    print(f"Total sessions added across all batches: {total_added}")
 
-    con.close()
+if __name__ == "__main__":
+    upload_timetable()
