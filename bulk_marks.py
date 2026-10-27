@@ -61,5 +61,11 @@ def upload_marks():
     # Save changes and close
     con.commit()
     con.close()
+    
+    print("-" * 30)
+    print("Bulk Marks Upload Complete!")
+    print(f"Total students processed: {len(students)}")
+    print(f"Total individual subject marks added: {total_marks_added}")
 
-    con.close()
+if __name__ == "__main__":
+    upload_marks()
