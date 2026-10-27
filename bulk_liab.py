@@ -12,5 +12,13 @@ NEW_BOOKS = [
     "Digital Design - M. Morris Mano",
     "Advanced Engineering Mathematics - Erwin Kreyszig",
     "Higher Engineering Mathematics - B.S. Grewal",
-
+    "Environmental Studies - Erach Bharucha",
+    "Time Management from the Inside Out - Julie Morgenstern",
+    "The Pragmatic Programmer - David Thomas",
+    "Deep Learning with Python - François Chollet",
+    "Fundamentals of Digital Logic - Brown & Vranesic",
+    "Grokking Algorithms - Aditya Bhargava"
 ]
+
+AARAV_SAP_ID = "590023538"
+
