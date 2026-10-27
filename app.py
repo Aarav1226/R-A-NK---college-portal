@@ -142,5 +142,17 @@ def show_admin():
     menu = st.sidebar.radio("Navigation", ["Timetable Manager", "Library & Admissions", "User Directory"])
     st.sidebar.button("⏻ Logout", on_click=logout)
     
+    if menu == "Timetable Manager":
+        st.header("Weekly Timetable Builder")
+        with st.form("ttb_form"):
+            c1, c2, c3, c4 = st.columns(4)
+            bat = c1.selectbox("Batch", ["A", "B", "C", "D"])
+            day = c2.selectbox("Day", ["Mon", "Tue", "Wed", "Thu", "Fri"])
+            tim = c3.text_input("Time (e.g. 08:00 AM - 09:00 AM)", "08:00 AM - 09:00 AM")
+            sub = c4.selectbox("Subject", SUBJECTS)
+            
+            c5, c6 = st.columns(2)
+            rm = c5.text_input("Room", "101")
+            
 
-    pass
+            pass
