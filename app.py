@@ -261,3 +261,14 @@ def show_admin():
                         count += 1
                 st.success(f"Promoted {count} students and applied automated dues!")
                 
+            st.subheader("Manual Fine")
+            f_uid = st.text_input("Target SAP ID")
+            f_amt = st.number_input("Fine Amount (Rs)", min_value=0, step=100)
+            if st.button("Apply Penalty"):
+                res = run_q("SELECT uid FROM stu WHERE uid=?", (f_uid.strip(),))
+                if res:
+                    run_q("UPDATE stu SET fee = fee + ? WHERE uid=?", (f_amt, f_uid.strip()), fetch=False)
+                    st.success(f"Applied Rs. {f_amt} fine to {f_uid.strip()}")
+                else:
+                    st.error("Student SAP ID not found.")
+
