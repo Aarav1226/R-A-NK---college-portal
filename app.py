@@ -164,3 +164,10 @@ def show_admin():
                       (bat, day, tim, sub, rm, tid), fetch=False)
                 st.success("Session Added!")
                 
+        st.subheader("Weekly Timetable Matrix View")
+        view_bat = st.selectbox("Select Batch to View:", ["A", "B", "C", "D"])
+        sessions = run_q("SELECT day, tim, sub, rm, u.name FROM ttb t LEFT JOIN usr u ON t.tid=u.uid WHERE bat=?", (view_bat,))
+        if not sessions:
+            st.info("No sessions scheduled for this batch.")
+        else:
+            df_mat = pd.DataFrame(sessions, columns=["Day", "Time", "Subject", "Room", "Teacher"])
