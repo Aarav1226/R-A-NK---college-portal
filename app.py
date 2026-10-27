@@ -497,3 +497,15 @@ def show_teacher():
         df = pd.DataFrame(marks_data)
         edited_df = st.data_editor(df, disabled=["SAP ID", "Name"], hide_index=True, use_container_width=True)
         
+        if st.button("Save All Marks", type="primary"):
+            for index, row in edited_df.iterrows():
+                suid = row["SAP ID"]
+                m = int(row["Score (0-100)"])
+                if m > 0 or row["Score (0-100)"] != 0:
+                    if run_q("SELECT * FROM mrk WHERE uid=? AND sem=? AND sub=?", (suid, t_sem, tch_sub)):
+                        run_q("UPDATE mrk SET mrk=? WHERE uid=? AND sem=? AND sub=?", (m, suid, t_sem, tch_sub), fetch=False)
+                    else:
+                        run_q("INSERT INTO mrk VALUES (?, ?, ?, ?)", (suid, t_sem, tch_sub, m), fetch=False)
+            st.success("Marks saved successfully!")
+            st.rerun()
+
