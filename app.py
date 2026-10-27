@@ -135,3 +135,4 @@ def show_login():
                             else:
                                 run_q("INSERT INTO tch VALUES (?, 'A', ?)", (n_uid, n_sub), fetch=False)
                             st.success("Account Created! Please Login.")
+
