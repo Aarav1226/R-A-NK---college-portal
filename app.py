@@ -206,3 +206,9 @@ def show_admin():
             
             st.dataframe(df, use_container_width=True, hide_index=True)
             
+            del_id = st.number_input("Enter Session ID to delete:", step=1, min_value=0)
+            if st.button("Delete Session"):
+                # CRUD: DELETE session
+                run_q("DELETE FROM ttb WHERE id=?", (del_id,), fetch=False)
+                st.rerun()
+
