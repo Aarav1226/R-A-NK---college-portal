@@ -682,3 +682,16 @@ def show_student():
             else:
                 st.info("No books available right now.")
                 
+        with c2:
+            st.subheader("My Issued Books")
+            my_bks = run_q("SELECT bid, title FROM bks WHERE rent=?", (uid,))
+            if my_bks:
+                options_ret = {f"{b[0]} - {b[1]}": b[0] for b in my_bks}
+                sel_ret = st.selectbox("Your Books", options_ret.keys())
+                if st.button("Return Selected Book"):
+                    run_q("UPDATE bks SET rent='' WHERE bid=?", (options_ret[sel_ret],), fetch=False)
+                    st.success("Book Returned!")
+                    st.rerun()
+            else:
+                st.info("You have no books issued.")
+
