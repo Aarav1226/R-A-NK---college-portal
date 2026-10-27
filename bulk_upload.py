@@ -47,5 +47,16 @@ student_data = [
     ("Yash Dhondiyal", "590024289", "C", "YA4289"),
     ("Aksh Aswal", "590024622", "C", "AK4622"),
     ("GARVIT JUNEJA", "590024669", "C", "GA4669"),
+    ("Anjali Kalra", "590024902", "D", "AN4902"),
+    ("Tushveen Kaur Bhatia", "590025028", "D", "TU5028"),
+    ("Lovish Goyal", "590025138", "D", "LO5138"),
+    ("Jiya Singh", "590025179", "D", "JI5179"),
+    ("Ankit Sah", "590025270", "D", "AN5270"),
+    ("Nikhil Pant", "590025383", "D", "NI5383"),
+    ("Vedans Rawat", "590025450", "D", "VE5450"),
+    ("Devyansh Deopa", "590025479", "D", "DE5479"),
+    ("Bhoovi Verma", "590025848", "D", "BH5848"),
+    ("Krish Gupta", "590025919", "D", "KR5919"),
+    ("Atulya Singh", "590025932", "D", "AT5932"),
 
 ]
