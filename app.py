@@ -222,5 +222,11 @@ def show_admin():
                 run_q("INSERT INTO bks (title, rent) VALUES (?, '')", (new_bk,), fetch=False)
                 st.success("Book Added!")
                 
+            st.subheader("Inventory (Update & Delete)")
+            bks = run_q("SELECT bid, title, rent FROM bks")
+            if bks:
+                df_b = pd.DataFrame(bks, columns=["ID", "Title", "Rented To (UID)"])
+                # Editable data frame for updating book titles
+                edited_bks = st.data_editor(df_b, disabled=["ID", "Rented To (UID)"], use_container_width=True, hide_index=True, key="bks_editor")
 
         with c2: pass
