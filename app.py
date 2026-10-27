@@ -630,3 +630,29 @@ def show_student():
             
             with tabs[year-1]:
                 c1, c2 = st.columns(2)
+                
+                def draw_sem(col, sem_idx):
+                    with col:
+                        st.subheader(f"Semester {sem_idx}")
+                        res = run_q("SELECT sub, mrk FROM mrk WHERE uid=? AND sem=?", (uid, sem_idx))
+                        if not res:
+                            st.write("No data available.")
+                            return 0.0
+                        
+                        data = []
+                        tot_gp = 0
+                        for r in res:
+                            grd, gp = get_grade(r[1])
+                            tot_gp += gp
+                            data.append({"Subject": r[0], "Marks": r[1], "Grade": grd})
+                            
+                        st.table(pd.DataFrame(data))
+                        
+                        # SGPA Calculation
+                        sgpa = tot_gp / len(res)
+                        st.metric("SGPA", f"{sgpa:.2f}")
+                        return sgpa
+
+                sgpa1 = draw_sem(c1, sem1_num)
+                sgpa2 = draw_sem(c2, sem2_num)
+                
