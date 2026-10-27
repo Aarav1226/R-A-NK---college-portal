@@ -41,3 +41,15 @@ timetable_data_ab = [
     ("Fri", "10:00 AM - 10:55 AM", "Digital Electronics", "2004", "1003"),
     ("Fri", "12:00 PM - 01:55 PM", "Python", "AB-11 L-003", "1001")
 ]
+
+# Timetable for Batches C & D
+timetable_data_cd = [
+    # --- MONDAY ---
+    ("Mon", "08:00 AM - 09:55 AM", "Python", "AB-11 L-004", "1001"),
+    ("Mon", "10:00 AM - 10:55 AM", "Elements of AI/ML", "1201", "1002"),
+    ("Mon", "12:00 PM - 12:55 PM", "Python", "3003", "1001"),
+    ("Mon", "02:00 PM - 02:55 PM", "Maths", "3003", "1006"),
+    ("Mon", "03:00 PM - 03:55 PM", "Elements of AI/ML", "5001", "1002"),
+
+
+]
