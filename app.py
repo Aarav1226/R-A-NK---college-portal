@@ -477,3 +477,16 @@ def show_teacher():
                 st.success("Attendance Saved!")
                 st.rerun()
 
+    elif menu == "📝 Grading Hub":
+        st.header("Grading Hub")
+        t_sem = st.number_input("Target Semester", min_value=1, max_value=8, value=1)
+        
+        st.write(f"Editing Marks for: **{tch_sub} (Sem {t_sem})**")
+        query = """
+            SELECT s.uid, u.name, m.mrk 
+            FROM stu s 
+            JOIN usr u ON s.uid=u.uid 
+            LEFT JOIN mrk m ON s.uid=m.uid AND m.sub=? AND m.sem=?
+        """
+        stus = run_q(query, (tch_sub, t_sem))
+        
