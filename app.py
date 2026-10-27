@@ -112,5 +112,8 @@ def show_login():
                 n_nm = st.text_input("Full Name")
                 n_role = st.radio("Role", ["Student", "Teacher"], horizontal=True)
                 
+                # Default empty subject unless teacher
+                n_sub = st.selectbox("Subject Specialisation (Teachers Only)", SUBJECTS) if n_role == "Teacher" else None
+                
 
                 pass
