@@ -490,3 +490,10 @@ def show_teacher():
         """
         stus = run_q(query, (tch_sub, t_sem))
         
+        marks_data = []
+        for suid, snm, mrk in stus:
+            marks_data.append({"SAP ID": suid, "Name": snm, "Score (0-100)": mrk if mrk is not None else 0})
+            
+        df = pd.DataFrame(marks_data)
+        edited_df = st.data_editor(df, disabled=["SAP ID", "Name"], hide_index=True, use_container_width=True)
+        
