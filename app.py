@@ -68,3 +68,8 @@ if 'uid' not in st.session_state: st.session_state.uid = None
 if 'role' not in st.session_state: st.session_state.role = None
 if 'name' not in st.session_state: st.session_state.name = None
 
+def logout():
+    st.session_state.uid = None
+    st.session_state.role = None
+    st.session_state.name = None
+
