@@ -376,3 +376,15 @@ def show_admin():
             else:
                 st.info("No students currently assigned to this semester.")
 
+# --- TEACHER PORTAL ---
+def show_teacher():
+    uid = st.session_state.uid
+    tch_sub = run_q("SELECT sub FROM tch WHERE uid=?", (uid,))[0][0]
+    
+    st.sidebar.title("🎓 R(A)NK Teacher")
+    st.sidebar.markdown(f"**Prof. {st.session_state.name}**<br>Subject: {tch_sub}", unsafe_allow_html=True)
+    menu = st.sidebar.radio("Navigation", ["🏠 Dashboard", "📅 Attendance Log", "📝 Grading Hub"])
+    st.sidebar.button("⏻ Logout", on_click=logout)
+    
+
+    pass
