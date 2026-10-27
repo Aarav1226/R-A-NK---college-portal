@@ -276,6 +276,14 @@ def show_admin():
         st.header("👥 User Directory")
         tabs = st.tabs(["Manage Teachers", "Manage Students"])
         
+        with tabs[0]:
+            st.subheader("Teacher Records (Update)")
+            st.info("Edit teacher details directly in the table. Changing an ID will automatically migrate all their linked data.")
+            tchs = run_q("SELECT t.uid, u.name, t.sub FROM tch t JOIN usr u ON t.uid = u.uid")
+            
+            if tchs:
+                df_tch = pd.DataFrame(tchs, columns=["SAP ID", "Name", "Subject"])
+                edited_tch = st.data_editor(df_tch, use_container_width=True, hide_index=True, key="tch_editor")
+                
 
-        with tabs[0]: pass
         with tabs[1]: pass
