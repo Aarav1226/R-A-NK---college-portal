@@ -136,3 +136,11 @@ def show_login():
                                 run_q("INSERT INTO tch VALUES (?, 'A', ?)", (n_uid, n_sub), fetch=False)
                             st.success("Account Created! Please Login.")
 
+# --- ADMIN PORTAL ---
+def show_admin():
+    st.sidebar.title("🔧 Admin Dashboard")
+    menu = st.sidebar.radio("Navigation", ["Timetable Manager", "Library & Admissions", "User Directory"])
+    st.sidebar.button("⏻ Logout", on_click=logout)
+    
+
+    pass
