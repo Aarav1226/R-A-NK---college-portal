@@ -77,3 +77,26 @@ timetable_data_cd = [
     ("Fri", "12:00 PM - 01:55 PM", "DSA", "AB-11 L-010", "1000"),
     ("Fri", "03:00 PM - 03:55 PM", "Maths", "5203", "1006")
 ]
+
+def upload_timetable():
+    # Connect to your existing database
+    con = sqlite3.connect("col.db")
+    c = con.cursor()
+    
+    # Ensure the ttb table exists just in case
+    c.execute('''CREATE TABLE IF NOT EXISTS ttb (id INTEGER PRIMARY KEY AUTOINCREMENT, bat TEXT, day TEXT, tim TEXT, sub TEXT, rm TEXT, tid TEXT)''')
+    
+    # Clear existing timetables for all specified batches to prevent duplicates
+    c.execute("DELETE FROM ttb WHERE bat IN ('A', 'B', 'C', 'D')")
+    print("🧹 Cleared old timetable data for Batches A, B, C, & D.")
+    
+    # Mapping batches to their respective data sets
+    batch_map = [
+        ("A", timetable_data_ab),
+        ("B", timetable_data_ab),
+        ("C", timetable_data_cd),
+        ("D", timetable_data_cd)
+    ]
+    
+
+    con.close()
