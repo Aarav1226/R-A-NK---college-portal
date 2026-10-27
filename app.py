@@ -549,5 +549,19 @@ def show_student():
             </div>
             """, unsafe_allow_html=True)
             
+        with c2:
+            st.subheader("Attendance Summary")
+            att_records = run_q("SELECT sub, attended, total FROM att_data WHERE uid=?", (uid,))
+            if not att_records:
+                st.info("No attendance records available.")
+            else:
+                st.markdown("""
+                <div style='display: flex; gap: 15px; font-size: 14px; margin-bottom: 15px;'>
+                    <div><span style='color: #3498db;'>■</span> 75%+ (Good)</div>
+                    <div><span style='color: #f1c40f;'>■</span> 65-74% (Warning)</div>
+                    <div><span style='color: #e74c3c;'>■</span> &lt;65% (Critical)</div>
+                </div>
+                """, unsafe_allow_html=True)
 
-        with c2: pass
+
+                pass
