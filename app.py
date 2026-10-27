@@ -228,5 +228,13 @@ def show_admin():
                 df_b = pd.DataFrame(bks, columns=["ID", "Title", "Rented To (UID)"])
                 # Editable data frame for updating book titles
                 edited_bks = st.data_editor(df_b, disabled=["ID", "Rented To (UID)"], use_container_width=True, hide_index=True, key="bks_editor")
+                if st.button("Save Book Updates"):
+                    for index, row in edited_bks.iterrows():
+                        b_id = df_b.at[index, "ID"]
+                        new_title = row["Title"]
+                        run_q("UPDATE bks SET title=? WHERE bid=?", (new_title, b_id), fetch=False)
+                    st.success("Book records updated!")
+                    st.rerun()
+                
 
         with c2: pass
