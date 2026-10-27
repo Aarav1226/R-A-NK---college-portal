@@ -181,3 +181,13 @@ def show_admin():
             existing_days = [d for d in DAYS_ORDER_LIST if d in pivot_df.columns]
             pivot_df = pivot_df[existing_days]
             
+            # Ensure chronological times (Rows) by converting start-time string to an actual Datetime object
+            # This fixes the issue where "01:00 PM" sorts above "08:00 AM" alphabetically
+            try:
+                sorted_idx = sorted(pivot_df.index, key=lambda t: pd.to_datetime(t.split('-')[0].strip(), format='%I:%M %p'))
+                pivot_df = pivot_df.loc[sorted_idx]
+            except Exception:
+                pivot_df = pivot_df.sort_index()
+                
+            st.table(pivot_df)
+
