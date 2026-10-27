@@ -73,3 +73,16 @@ def logout():
     st.session_state.role = None
     st.session_state.name = None
 
+# --- LOGIN & REGISTRATION ---
+def show_login():
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        st.markdown("<h1 style='font-size: 80px; color: #ff007f; margin-bottom: 0px;'>R(A)NK</h1>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #0275d8; margin-top: 0px;'>Rajeev Ankita Network Knowledge</h3>", unsafe_allow_html=True)
+        st.markdown("<h2>UNIVERSITY OF TOMORROW</h2>", unsafe_allow_html=True)
+        st.write("A Modern Educational Portal.")
+        
+
+    with col2: pass
