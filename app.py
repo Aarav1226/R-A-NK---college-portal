@@ -425,3 +425,9 @@ def show_teacher():
         sel_ses = st.selectbox("Select Session:", options=list(ses_options.keys()))
         
         ttb_id, bat = ses_options[sel_ses]
+        dt_today = date.today().isoformat()
+        
+        is_locked = bool(run_q("SELECT * FROM class_conducted WHERE ttb_id=? AND dt=?", (ttb_id, dt_today)))
+        
+
+        pass
