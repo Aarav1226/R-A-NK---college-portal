@@ -61,3 +61,10 @@ def run_q(q, vals=(), fetch=True):
 # Initialize DB on startup
 init_db()
 
+# --- SESSION STATE ---
+# Streamlit reruns the script on every interaction. 
+# We use st.session_state to securely remember the logged-in user across reruns.
+if 'uid' not in st.session_state: st.session_state.uid = None
+if 'role' not in st.session_state: st.session_state.role = None
+if 'name' not in st.session_state: st.session_state.name = None
+
