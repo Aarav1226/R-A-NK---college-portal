@@ -26,6 +26,7 @@ def init_db():
     con = sqlite3.connect("col.db")
     c = con.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS usr (uid TEXT PRIMARY KEY, psw TEXT, role TEXT, name TEXT)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS stu (uid TEXT PRIMARY KEY, bat TEXT, sem INTEGER, att INTEGER, fee INTEGER)''')
 
     con.commit()
     con.close()
