@@ -695,3 +695,14 @@ def show_student():
             else:
                 st.info("You have no books issued.")
 
+    elif menu == "⚙ Settings":
+        st.header("Account Settings")
+        with st.form("pwd_form"):
+            npsw = st.text_input("New Password", type="password")
+            if st.form_submit_button("Update Password"):
+                if npsw:
+                    run_q("UPDATE usr SET psw=? WHERE uid=?", (npsw, uid), fetch=False)
+                    st.success("Password updated successfully!")
+                else:
+                    st.warning("Please enter a password.")
+
