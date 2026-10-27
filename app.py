@@ -236,5 +236,15 @@ def show_admin():
                     st.success("Book records updated!")
                     st.rerun()
                 
+                st.markdown("---")
+                # Section for deleting a book
+                del_bk_id = st.number_input("Enter Book ID to delete:", step=1, min_value=0)
+                if st.button("Delete Book"):
+                    run_q("DELETE FROM bks WHERE bid=?", (del_bk_id,), fetch=False)
+                    st.success("Book deleted!")
+                    st.rerun()
+            else:
+                st.info("Library is empty.")
+            
 
         with c2: pass
