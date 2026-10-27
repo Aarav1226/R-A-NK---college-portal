@@ -272,3 +272,10 @@ def show_admin():
                 else:
                     st.error("Student SAP ID not found.")
 
+    elif menu == "User Directory":
+        st.header("👥 User Directory")
+        tabs = st.tabs(["Manage Teachers", "Manage Students"])
+        
+
+        with tabs[0]: pass
+        with tabs[1]: pass
