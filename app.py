@@ -595,3 +595,29 @@ def show_student():
             else:
                 st.success("All dues cleared!")
 
+    elif menu == "📅 Timetable":
+        st.header(f"Weekly Timetable - Batch {bat}")
+        sessions = run_q("SELECT day, tim, sub, rm, u.name FROM ttb t LEFT JOIN usr u ON t.tid=u.uid WHERE bat=?", (bat,))
+        if not sessions:
+            st.info("No sessions scheduled.")
+        else:
+            df = pd.DataFrame(sessions, columns=["Day", "Time", "Subject", "Room", "Teacher"])
+            # Format multi-line content for Matrix cells
+            df["Details"] = df["Subject"] + "\nRoom: " + df["Room"] + "\nProf. " + df["Teacher"]
+            
+            # Pivot table converts vertical database list into Horizontal Mon-Sun Matrix!
+            pivot_df = df.pivot_table(index="Time", columns="Day", values="Details", aggfunc=lambda x: '\n---\n'.join(x)).fillna("-")
+            
+            # Ensure chronological days (Columns)
+            existing_days = [d for d in DAYS_ORDER_LIST if d in pivot_df.columns]
+            pivot_df = pivot_df[existing_days]
+            
+            # Ensure chronological times (Rows) by converting start-time string to an actual Datetime object
+            try:
+                sorted_idx = sorted(pivot_df.index, key=lambda t: pd.to_datetime(t.split('-')[0].strip(), format='%I:%M %p'))
+                pivot_df = pivot_df.loc[sorted_idx]
+            except Exception:
+                pivot_df = pivot_df.sort_index() # Fallback
+            
+            st.table(pivot_df)
+
