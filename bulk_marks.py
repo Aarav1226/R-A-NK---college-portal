@@ -37,5 +37,29 @@ def upload_marks():
         con.close()
         return
 
+    total_marks_added = 0
+    
+    print("\n--- Generating & Uploading Marks ---")
+    for (uid,) in students:
+        for sem in [1, 2]:
+            for sub in SUBJECTS:
+                # Check if the current student is Aarav
+                if uid == AARAV_SAP_ID:
+                    mark = AARAV_FIXED_SCORE
+                else:
+                    # Generate a random score for other students (e.g., between 40 and 99)
+                    mark = random.randint(40, 99)
+                
+                # Insert the mark into the database
+                c.execute("INSERT INTO mrk (uid, sem, sub, mrk) VALUES (?, ?, ?, ?)", (uid, sem, sub, mark))
+                total_marks_added += 1
+                
+        # Just to print progress for a few
+        if uid == AARAV_SAP_ID:
+            print(f"🌟 Processed Aarav ({uid}) - Assigned {AARAV_FIXED_SCORE}% in all subjects for Sem 1 & 2")
+
+    # Save changes and close
+    con.commit()
+    con.close()
 
     con.close()
