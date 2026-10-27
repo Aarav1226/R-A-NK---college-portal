@@ -386,5 +386,29 @@ def show_teacher():
     menu = st.sidebar.radio("Navigation", ["🏠 Dashboard", "📅 Attendance Log", "📝 Grading Hub"])
     st.sidebar.button("⏻ Logout", on_click=logout)
     
-
-    pass
+    if menu == "🏠 Dashboard":
+        st.header("My Weekly Schedule")
+        my_ttb = run_q("SELECT day, tim, bat, sub, rm FROM ttb WHERE tid=?", (uid,))
+        if not my_ttb:
+            st.info("No classes assigned yet.")
+        else:
+            df = pd.DataFrame(my_ttb, columns=["Day", "Time", "Batch", "Subject", "Room"])
+            # Format multi-line content for Matrix
+            df["Details"] = "Batch: " + df["Batch"] + "\nRoom: " + df["Room"]
+            
+            # Pivot table converts vertical database list into Horizontal Mon-Sun Matrix!
+            pivot_df = df.pivot_table(index="Time", columns="Day", values="Details", aggfunc=lambda x: '\n---\n'.join(x)).fillna("-")
+            
+            # Ensure chronological days (Columns)
+            existing_days = [d for d in DAYS_ORDER_LIST if d in pivot_df.columns]
+            pivot_df = pivot_df[existing_days]
+            
+            # Ensure chronological times (Rows) by converting start-time string to an actual Datetime object
+            try:
+                sorted_idx = sorted(pivot_df.index, key=lambda t: pd.to_datetime(t.split('-')[0].strip(), format='%I:%M %p'))
+                pivot_df = pivot_df.loc[sorted_idx]
+            except Exception:
+                pivot_df = pivot_df.sort_index()
+            
+            st.table(pivot_df)
+            
