@@ -42,5 +42,16 @@ def setup_library():
         
     con.commit()
     
+    # 3. Fetch all available books with their new IDs
+    c.execute("SELECT bid, title FROM bks")
+    available_books = c.fetchall() # List of (bid, title)
+    
+    # 4. Fetch all students
+    c.execute("SELECT uid, name FROM usr WHERE role='stu'")
+    all_students = c.fetchall()
+    
+    if not all_students:
+        print("❌ No students found! Run bulk_upload.py first.")
+        con.close()
+        return
 
-    con.close()
