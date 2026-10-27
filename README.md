@@ -48,7 +48,7 @@ Installation
 
 Clone the repository:
 
-git clone https://github.com/your-username/rank-portal.git
+git clone https://github.com/Aarav1226/R-A-NK---college-portal.git
 cd rank-portal
 
 
