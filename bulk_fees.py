@@ -43,6 +43,10 @@ def apply_bulk_fees():
     con.commit()
     con.close()
     
+    print("-" * 40)
+    print("Bulk Fee Upload Complete!")
+    print(f"Total students updated: {total_students_updated}")
 
-    con.commit()
-    con.close()
+if __name__ == "__main__":
+    apply_bulk_fees()
+    
