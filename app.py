@@ -656,3 +656,12 @@ def show_student():
                 sgpa1 = draw_sem(c1, sem1_num)
                 sgpa2 = draw_sem(c2, sem2_num)
                 
+                st.markdown("---")
+                # Combined CGPA Logic
+                if sgpa1 > 0 and sgpa2 > 0: 
+                    st.success(f"### Combined Yearly CGPA: {(sgpa1 + sgpa2) / 2:.2f}")
+                elif sgpa1 > 0: 
+                    st.info(f"### Yearly CGPA (Tentative): {sgpa1:.2f}")
+                elif sgpa2 > 0: 
+                    st.info(f"### Yearly CGPA (Tentative): {sgpa2:.2f}")
+
