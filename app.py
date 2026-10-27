@@ -541,5 +541,13 @@ def show_student():
             </div>
             """, unsafe_allow_html=True)
             
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("""
+            <div style='background-color: white; padding: 20px; border-radius: 10px; border: 1px solid #e1e8ed;'>
+                <h4 style='margin-bottom:10px;'>April 2026</h4>
+                <pre style='font-family: monospace; font-size: 12px; color: #2c3e50;'>MO TU WE TH FR SA SU\n .  .  1  2  3  4  5\n 6  7 [8] 9 10 11 12\n13 14 15 16 17 18 19\n20 21 22 23 24 25 26</pre>
+            </div>
+            """, unsafe_allow_html=True)
+            
 
         with c2: pass
