@@ -11,3 +11,9 @@ SUBJECTS = [
     "Digital Electronics", 
     "Elements of AI/ML"
 ]
+
+
+# Aarav's specific SAP ID based on your previous data
+AARAV_SAP_ID = "590023538"
+AARAV_FIXED_SCORE = 92
+
