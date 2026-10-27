@@ -706,3 +706,13 @@ def show_student():
                 else:
                     st.warning("Please enter a password.")
 
+# --- MAIN ROUTER ---
+if st.session_state.uid is None:
+    show_login()
+else:
+    if st.session_state.role == "admin":
+        show_admin()
+    elif st.session_state.role == "tch":
+        show_teacher()
+    elif st.session_state.role == "stu":
+        show_student()
