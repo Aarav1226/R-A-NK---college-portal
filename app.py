@@ -252,5 +252,12 @@ def show_admin():
             promo_bat = st.selectbox("Promote Batch to Next Semester:", ["A", "B", "C", "D", "ALL"])
             if st.button("Promote & Apply New Dues"):
                 stus = run_q("SELECT uid, sem, fee FROM stu") if promo_bat == "ALL" else run_q("SELECT uid, sem, fee FROM stu WHERE bat=?", (promo_bat,))
-
-                pass
+                count = 0
+                for u, s, f in stus:
+                    if s < 8:
+                        ns = s + 1
+                        nf = f + SEMESTER_FEES[ns] # Automates fee increments perfectly
+                        run_q("UPDATE stu SET sem=?, fee=? WHERE uid=?", (ns, nf, u), fetch=False)
+                        count += 1
+                st.success(f"Promoted {count} students and applied automated dues!")
+                
