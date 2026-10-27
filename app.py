@@ -246,5 +246,11 @@ def show_admin():
             else:
                 st.info("Library is empty.")
             
+        with c2:
+            st.header("🎓 Admissions & Fees")
+            st.subheader("Batch Promotion")
+            promo_bat = st.selectbox("Promote Batch to Next Semester:", ["A", "B", "C", "D", "ALL"])
+            if st.button("Promote & Apply New Dues"):
+                stus = run_q("SELECT uid, sem, fee FROM stu") if promo_bat == "ALL" else run_q("SELECT uid, sem, fee FROM stu WHERE bat=?", (promo_bat,))
 
-        with c2: pass
+                pass
