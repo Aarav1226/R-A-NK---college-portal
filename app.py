@@ -57,3 +57,7 @@ def run_q(q, vals=(), fetch=True):
         return e
     finally:
         con.close()
+
+# Initialize DB on startup
+init_db()
+
