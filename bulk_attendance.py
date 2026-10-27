@@ -57,5 +57,28 @@ def upload_attendance():
         con.close()
         return
 
+    total_records_added = 0
+    
+    print("\n--- Generating & Uploading Attendance ---")
+    for (uid,) in students:
+        overall_attended = 0 # To track total attended days for the dashboard
+        
+        for sub in SUBJECTS:
+            # Everyone gets the exact same total conducted classes
+            total = TOTAL_CLASSES[sub]
+            
+            # If Aarav, use his exact attended count
+            if uid == AARAV_SAP_ID:
+                attended = AARAV_ATTENDED[sub]
+            else:
+                # Generate a random attendance count for others (between 40% and 100%)
+                attended = random.randint(int(total * 0.4), total)
+            
+            # Insert into subject-wise attendance table
+            c.execute("INSERT INTO att_data (uid, sub, attended, total) VALUES (?, ?, ?, ?)", (uid, sub, attended, total))
+            overall_attended += attended
+            total_records_added += 1
+            
 
+    con.commit()
     con.close()
