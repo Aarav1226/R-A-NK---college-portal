@@ -154,5 +154,9 @@ def show_admin():
             c5, c6 = st.columns(2)
             rm = c5.text_input("Room", "101")
             
+            tch_list = run_q("SELECT uid, name FROM usr WHERE role='tch'")
+            tch_options = {f"{t[0]} - {t[1]}": t[0] for t in tch_list}
+            tch = c6.selectbox("Teacher", options=tch_options.keys())
+            
 
             pass
