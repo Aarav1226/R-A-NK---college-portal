@@ -509,3 +509,15 @@ def show_teacher():
             st.success("Marks saved successfully!")
             st.rerun()
 
+# --- STUDENT PORTAL ---
+def show_student():
+    uid = st.session_state.uid
+    stu_data = run_q("SELECT bat, sem, att, fee FROM stu WHERE uid=?", (uid,))[0]
+    bat, sem, att, fee = stu_data
+    
+    st.sidebar.title("🎓 R(A)NK Student")
+    menu = st.sidebar.radio("Navigation", ["🏠 Home", "📅 Timetable", "📊 Academic Results", "📚 Library", "⚙ Settings"])
+    st.sidebar.button("⏻ Logout", on_click=logout)
+    
+
+    pass
