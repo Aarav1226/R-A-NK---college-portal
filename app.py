@@ -15,3 +15,7 @@ SEMESTER_FEES = {
     1: 277600, 2: 243600, 3: 258100, 4: 257600,
     5: 302600, 6: 272600, 7: 301600, 8: 288100
 }
+
+# Mapping to sort days chronologically instead of alphabetically
+DAY_ORDER_MAP = {"Mon": 1, "Tue": 2, "Wed": 3, "Thu": 4, "Fri": 5, "Sat": 6, "Sun": 7}
+DAYS_ORDER_LIST = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
