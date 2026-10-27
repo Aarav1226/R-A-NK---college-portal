@@ -40,3 +40,12 @@ def init_db():
         c.execute("INSERT INTO usr VALUES ('ADMIN', '1234567890', 'admin', 'System Admin')")
     con.commit()
     con.close()
+
+
+def run_q(q, vals=(), fetch=True):
+    con = sqlite3.connect('col.db')
+    c = con.cursor()
+    c.execute(q, vals)
+    res = c.fetchall() if fetch else (con.commit() or True)
+    con.close()
+    return res
