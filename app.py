@@ -621,3 +621,12 @@ def show_student():
             
             st.table(pivot_df)
 
+    elif menu == "📊 Academic Results":
+        st.header("Term-wise Academic Results")
+        tabs = st.tabs(["Year 1", "Year 2", "Year 3", "Year 4"])
+        
+        for year in range(1, 5):
+            sem1_num, sem2_num = year * 2 - 1, year * 2
+            
+            with tabs[year-1]:
+                c1, c2 = st.columns(2)
