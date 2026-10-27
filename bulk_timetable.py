@@ -65,5 +65,15 @@ timetable_data_cd = [
     ("Wed", "01:00 PM - 01:55 PM", "Digital Electronics", "3105", "1003"),
     ("Wed", "03:00 PM - 03:55 PM", "EVS", "MS Teams", "1005"),
 
+    # --- THURSDAY ---
+    ("Thu", "08:00 AM - 08:55 AM", "Digital Electronics", "3103", "1003"),
+    ("Thu", "09:00 AM - 09:55 AM", "DSA", "1203", "1000"),
+    ("Thu", "12:00 PM - 01:55 PM", "Python", "AB-11 L-010", "1001"),
 
+    # --- FRIDAY ---
+    ("Fri", "08:00 AM - 08:55 AM", "Maths", "3101", "1006"),
+    ("Fri", "09:00 AM - 09:55 AM", "DSA", "3001", "1000"),
+    ("Fri", "10:00 AM - 10:55 AM", "Digital Electronics", "2004", "1003"),
+    ("Fri", "12:00 PM - 01:55 PM", "DSA", "AB-11 L-010", "1000"),
+    ("Fri", "03:00 PM - 03:55 PM", "Maths", "5203", "1006")
 ]
