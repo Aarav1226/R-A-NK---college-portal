@@ -438,3 +438,27 @@ def show_teacher():
                 att, tot = rec[0] if rec else (0, 0)
                 display_data.append({"SAP ID": suid, "Name": snm, "Attended": att, "Total Classes": tot})
             st.dataframe(pd.DataFrame(display_data), hide_index=True, use_container_width=True)
+        else:
+            st.info("Editable Mode: Toggle checkboxes and hit Save.")
+            stus = run_q("SELECT u.uid, u.name FROM usr u JOIN stu s ON u.uid=s.uid WHERE u.role='stu' AND s.bat=?", (bat,))
+            
+            edit_data = []
+            for (suid, snm) in stus:
+                rec = run_q("SELECT attended, total FROM att_data WHERE uid=? AND sub=?", (suid, tch_sub))
+                att, tot = rec[0] if rec else (0, 0)
+                edit_data.append({
+                    "Present Today": False, 
+                    "SAP ID": suid, 
+                    "Name": snm, 
+                    "Prev. Attended": att, 
+                    "Total Classes": tot
+                })
+                
+            # Streamlit Interactive Data Editor (Acts like an embedded Excel sheet)
+            df = pd.DataFrame(edit_data)
+            edited_df = st.data_editor(
+                df, 
+                disabled=["SAP ID", "Name", "Prev. Attended", "Total Classes"],
+                hide_index=True,
+                use_container_width=True
+            )
