@@ -177,3 +177,7 @@ def show_admin():
             # Pivot table converts vertical database list into Horizontal Mon-Sun Matrix!
             pivot_df = df_mat.pivot_table(index="Time", columns="Day", values="Details", aggfunc=lambda x: '\n---\n'.join(x)).fillna("-")
             
+            # Ensure chronological days (Columns)
+            existing_days = [d for d in DAYS_ORDER_LIST if d in pivot_df.columns]
+            pivot_df = pivot_df[existing_days]
+            
