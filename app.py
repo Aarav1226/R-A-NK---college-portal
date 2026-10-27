@@ -584,3 +584,14 @@ def show_student():
                     </div>
                     """, unsafe_allow_html=True)
             
+            st.markdown("---")
+            st.subheader("Payment Details")
+            st.metric("Total Due Amount", f"Rs. {fee:,}")
+            if fee > 0:
+                if st.button("Proceed to Pay full amount", type="primary"):
+                    run_q("UPDATE stu SET fee=0 WHERE uid=?", (uid,), fetch=False)
+                    st.success("Fees Paid Successfully!")
+                    st.rerun()
+            else:
+                st.success("All dues cleared!")
+
