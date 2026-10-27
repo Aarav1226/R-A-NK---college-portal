@@ -104,5 +104,13 @@ def show_login():
                         st.rerun() # Refresh the page to load the correct dashboard
                     else:
                         st.error("Invalid ID or Password")
+                        
+        with tab2:
+            with st.form("reg_form"):
+                n_uid = st.text_input("SAP ID")
+                n_psw = st.text_input("Password", type="password")
+                n_nm = st.text_input("Full Name")
+                n_role = st.radio("Role", ["Student", "Teacher"], horizontal=True)
+                
 
-        with tab2: pass
+                pass
