@@ -19,3 +19,12 @@ SEMESTER_FEES = {
 # Mapping to sort days chronologically instead of alphabetically
 DAY_ORDER_MAP = {"Mon": 1, "Tue": 2, "Wed": 3, "Thu": 4, "Fri": 5, "Sat": 6, "Sun": 7}
 DAYS_ORDER_LIST = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+# --- DATABASE HELPER ---
+def init_db():
+    # CRUD: CREATE tables if they don't already exist
+    con = sqlite3.connect("col.db")
+    c = con.cursor()
+
+    con.commit()
+    con.close()
