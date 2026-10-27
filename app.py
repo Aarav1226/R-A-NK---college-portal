@@ -519,5 +519,12 @@ def show_student():
     menu = st.sidebar.radio("Navigation", ["🏠 Home", "📅 Timetable", "📊 Academic Results", "📚 Library", "⚙ Settings"])
     st.sidebar.button("⏻ Logout", on_click=logout)
     
+    def get_grade(m):
+        if m >= 90: return "O", 10.0
+        elif m >= 80: return "A+", 9.0
+        elif m >= 70: return "A", 8.0
+        elif m >= 60: return "B+", 7.0
+        elif m >= 50: return "B", 6.0
+        elif m >= 40: return "C", 5.0
+        else: return "F", 0.0
 
-    pass
