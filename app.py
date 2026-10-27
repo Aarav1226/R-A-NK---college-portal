@@ -191,3 +191,18 @@ def show_admin():
                 
             st.table(pivot_df)
 
+        st.markdown("---")
+        st.subheader("Manage / Delete Records")
+        ttbs = run_q("SELECT t.id, t.bat, t.day, t.tim, t.sub, t.rm, u.name FROM ttb t LEFT JOIN usr u ON t.tid=u.uid")
+        if ttbs:
+            df = pd.DataFrame(ttbs, columns=["ID", "Batch", "Day", "Time", "Subject", "Room", "Teacher"])
+            df["Day_Num"] = df["Day"].map(DAY_ORDER_MAP)
+            
+            try:
+                df["Sort_Time"] = pd.to_datetime(df["Time"].apply(lambda x: x.split('-')[0].strip()), format='%I:%M %p')
+                df = df.sort_values(["Batch", "Day_Num", "Sort_Time"]).drop(columns=["Day_Num", "Sort_Time"])
+            except:
+                df = df.sort_values(["Batch", "Day_Num", "Time"]).drop(columns=["Day_Num"])
+            
+            st.dataframe(df, use_container_width=True, hide_index=True)
+            
